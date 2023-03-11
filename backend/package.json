@@ -1,0 +1,26 @@
+{
+  "name": "video-streaming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon start"
+  },
+  "author": "codewithdinesh",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1333.0",
+    "bcrypt": "^5.1.0",
+    "bcrypto": "^5.4.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.1.0",
+    "mongoose": "^7.0.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.21"
+  }
+}
