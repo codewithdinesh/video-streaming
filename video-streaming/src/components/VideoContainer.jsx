@@ -9,7 +9,7 @@ const VideoContainer = () => {
 
             {
                 arr.map(e => {
-                    return <VideoComponent />
+                    return <VideoComponent key={e} />
                 })
             }
 

@@ -4,7 +4,8 @@ import logo from './logo.svg';
 
 function App() {
   return (
-    <div className="App bg-gray-900">
+    <div className="App ">
+      {/*  */}
       <Home />
     </div>
   );
