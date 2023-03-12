@@ -17,10 +17,6 @@ const VideoSchema = new mongoose.Schema({
         required: [true, "description required"]
     },
 
-    videoCategory: {
-        type: String
-    },
-
     videoCover: {
         type: String
     },
