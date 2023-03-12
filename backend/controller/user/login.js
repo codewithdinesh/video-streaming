@@ -48,7 +48,7 @@ const Login = (req, res) => {
                     {
                         user_id: user._id
                     },
-                    process.env.SECRET_KEY || "SECRET_KEY_Ystream",
+                    process.env.SECRET_KEY,
                     {
                         expiresIn: Math.floor(Date.now() / 1000) + (60 * 60)
                     }
