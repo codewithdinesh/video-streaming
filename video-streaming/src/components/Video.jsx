@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import VideoJS from './VideoJS'
 import videojs from 'video.js';
 import { RWebShare } from "react-web-share";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 // Video Page
 const Video = () => {
+
+    const { id } = useParams();
+
+    const [videoDetails, setVideoDetails] = useState({});
+
+    useEffect(() => {
+        fetchVideo()
+    }, []);
+
+
+    const fetchVideo = async () => {
+
+        let headersList = {
+            "Accept": "*/*",
+            "User-Agent": "y-stream"
+        }
+
+        let response = await fetch(`http://localhost:5001/video/${id}`, {
+            method: "GET",
+            headers: headersList
+        });
+
+        let data = await response.json();
+        setVideoDetails(data);
+        console.log(data);
+
+    }
 
     const vid = {
         title: "My first streaming platform, I dont know why it taking so time i have to solve it quckly",
@@ -34,7 +61,7 @@ const Video = () => {
         responsive: true,
         fluid: true,
         sources: [{
-            src: vid.src,
+            src: videoDetails.videoSource || "/temp-video.mp4",
             type: 'video/mp4'
         }]
     };
@@ -53,7 +80,19 @@ const Video = () => {
     };
 
     // On Like btn Click
-    const onLike = () => {
+    const onLike = async () => {
+        let headersList = {
+            "Accept": "*/*",
+            "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+        }
+
+        let response = await fetch(`http://localhost:5001/video/like/${id}`, {
+            method: "POST",
+            headers: headersList
+        });
+
+        let data = await response.json();
+        alert(data);
 
     }
 
@@ -66,7 +105,7 @@ const Video = () => {
                 {/* Options and Tools */}
                 <div>
                     <h1 className='py-1 text-lg font-semibold border-b border-gray-500 dark:border-gray-300 mb-1'>
-                        {vid.title}
+                        {videoDetails.videoTitle}
                     </h1>
 
                     {/* Creator,like and sharing option */}
@@ -80,11 +119,11 @@ const Video = () => {
                                 {/* avatar */}
                                 <img
                                     src={vid.creator.avatar}
-                                    class="w-11 rounded-full mr-1"
+                                    className="w-11 rounded-full mr-1"
                                     alt="Avatar" />
 
                                 <span>
-                                    {vid.creator.name}
+                                    {videoDetails?.videoCreator?.creatorName}
 
                                 </span>
                             </div>
@@ -93,7 +132,9 @@ const Video = () => {
                         <div className='flex p-1 '>
 
                             {/* Like */}
-                            <button className='mx-1 btn flex justify-center items-center rounded-full  px-1 border'>
+                            <button className='mx-1 btn flex justify-center items-center rounded-full  px-1 border'
+                                onClick={onLike}
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -108,7 +149,7 @@ const Video = () => {
                                 {/* Likes Count */}
                                 <span>
                                     <span className='px-1'>
-                                        {vid.likes}
+                                        {videoDetails.likes}
                                     </span>
                                     Likes
                                 </span>
@@ -118,7 +159,7 @@ const Video = () => {
 
                             <RWebShare
                                 data={{
-                                    text: [vid.title],
+                                    text: [videoDetails.videoTitle],
                                     url: [vid.url],
                                     title: "Share video",
                                 }}
@@ -157,7 +198,7 @@ const Video = () => {
 
                             {/* uploaded on */}
                             <div className='m-1 text-sm '>
-                                {vid.uploadedOn}
+                                {videoDetails.videoUploadedOn}
                             </div>
 
                         </div>
@@ -166,7 +207,7 @@ const Video = () => {
 
                         <div className=''>
 
-                            {vid.desc}
+                            {videoDetails.videoDescription}
                         </div>
 
 

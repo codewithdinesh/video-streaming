@@ -3,6 +3,7 @@ import Header from './Header'
 import VideoContainer from './VideoContainer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Video from './Video'
+import Login from './account/Login'
 
 const Home = () => {
     return (
@@ -14,7 +15,8 @@ const Home = () => {
                 <Header />
                 <Routes>
                     <Route path='/' element={<VideoContainer />} />
-                    <Route path='/video' element={<Video />} />
+                    <Route path='/video/:id' element={<Video />} />
+                    <Route path='/login' element={<Login />} />
 
                 </Routes>
             </BrowserRouter>

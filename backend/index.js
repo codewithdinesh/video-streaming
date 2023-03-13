@@ -3,10 +3,14 @@ const express = require("express");
 const app = express();
 const router = require("./routes/router")
 var cookieParser = require("cookie-parser");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 
 
 // middlewares
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.json());
