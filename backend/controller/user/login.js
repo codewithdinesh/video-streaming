@@ -31,14 +31,14 @@ const Login = (req, res) => {
 
         userModel.findOne({ email: email }).then((user) => {
 
-            if (!user) return res.status(401).send({ "status": "user not found", "email": email, "ResponseCreated": TimeStamp() });
+            if (!user) return res.status(401).send({ "message": "user not found", "email": email, "ResponseCreated": TimeStamp() });
 
             bcrypt.compare(pass, user.password, function (err, result) {
 
                 if (err) return res.status(400).send(err);
 
                 if (result === false) {
-                    return res.status(401).send({ "status": "password not match", "email": email, "ResponseCreated": TimeStamp() })
+                    return res.status(401).send({ "message": "password not match", "email": email, "ResponseCreated": TimeStamp() })
                 }
 
                 // store cookie
@@ -66,7 +66,7 @@ const Login = (req, res) => {
                 }
 
                 res.cookie('token_id', token, options);
-                res.status(200).send({ "status": "login success", "login_token": token, "email": email, "userId": user._id, "ResponseCreated": TimeStamp() });
+                res.status(200).send({ "message": "login success", "login_token": token, "email": email, "userId": user._id, "ResponseCreated": TimeStamp() });
 
             })
 
