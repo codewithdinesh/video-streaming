@@ -58,7 +58,7 @@ const likeVideo = (req, res) => {
 
                     User.findByIdAndUpdate({ _id: userID }, updateUserLikes)
                         .then(user => {
-                            return res.status(200).send({ "message": "video liked", "status": 200 });
+                            return res.status(200).send({ "likes": like.likes + 1, "message": "video liked", "status": 200 });
                         })
                         .catch(err => {
                             return res.status(400).json({ "message": "something went wrong during liking video" });
@@ -105,7 +105,9 @@ const likeVideo = (req, res) => {
                                         return res.status(400).json({ "message": "something went wrong" });
 
                                     }
-                                    return res.status(200).send({ "message": "video disliked", "status": 200 });
+                                    return res.status(200).send({
+                                        "likes": dislike.likes - 1, "message": "video disliked", "status": 200
+                                    });
                                 })
                                 .catch(err => {
                                     return res.status(400).json({ "message": "something went wrong during disliking video" });

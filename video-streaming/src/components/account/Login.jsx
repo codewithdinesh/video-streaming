@@ -5,14 +5,32 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-    const onLogin = () => {
-
-    }
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [inputType, SetInputType] = useState("password");
+
+    const onLogin = async () => {
+
+        let headersList = {
+            "Accept": "*/*",
+            "User-Agent": "y-stream",
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+
+        let bodyContent = `email=${email}&pass=${password}`;
+
+        let response = await fetch("http://localhost:5001/login", {
+            method: "POST",
+            body: bodyContent,
+            headers: headersList
+        });
+
+        let data = await response.json();
+        console.log(data);
+
+    }
 
     return (
         <div className=' w-full h-full'>
@@ -46,6 +64,7 @@ const Login = () => {
                                 </div>
                                 <input
                                     type="email"
+                                    value={email}
                                     onChange={e => {
                                         e.preventDefault();
                                         setEmail(e.target.value);
@@ -79,6 +98,7 @@ const Login = () => {
                                 </div>
                                 <input
                                     type={inputType}
+                                    value={password}
                                     onChange={e => {
                                         e.preventDefault();
                                         setPassword(e.target.value);

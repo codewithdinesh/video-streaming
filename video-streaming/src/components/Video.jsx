@@ -92,7 +92,7 @@ const Video = () => {
         });
 
         let data = await response.json();
-        alert(data);
+        console.log(data)
 
     }
 
@@ -209,9 +209,6 @@ const Video = () => {
 
                             {videoDetails.videoDescription}
                         </div>
-
-
-
 
                     </div>
                 </div>
