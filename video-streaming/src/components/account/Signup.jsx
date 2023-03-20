@@ -27,13 +27,14 @@ const Signup = () => {
             headers: headersList
         })
             .then((response) => {
-                // if (response.ok) {
-                    return response.json();
-                // }
+
+                return response.json();
+
             })
             .then(data => {
                 toast(data.message);
-                // console.log(data);
+                console.log(data);
+                localStorage.setItem('login_token', data?.login_token)
             })
             .catch((err) => {
                 // console.log(err);

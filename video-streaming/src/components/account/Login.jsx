@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -20,15 +20,22 @@ const Login = () => {
         }
 
         let bodyContent = `email=${email}&pass=${password}`;
-
-        let response = await fetch("http://localhost:5001/login", {
+        await fetch("http://localhost:5001/login", {
             method: "POST",
             body: bodyContent,
             headers: headersList
-        });
+        })
+            .then(res => { return res.json() })
+            .then(data => {
+                console.log(data)
+                document.cookie = `login_token=${data.token_id}`
+                toast(data.message);
 
-        let data = await response.json();
-        console.log(data);
+            })
+            .catch(err => {
+                toast("Server Down...");
+            })
+
 
     }
 

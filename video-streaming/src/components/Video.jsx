@@ -31,7 +31,7 @@ const Video = () => {
 
         let data = await response.json();
         setVideoDetails(data);
-        console.log(data);
+        // console.log(data);
 
     }
 
