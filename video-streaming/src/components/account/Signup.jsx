@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useCookies } from 'react-cookie';
+
 
 
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [re_password, setRePassword] = useState("");
+    const [re_password, setRePassword] = useState("")
     const [username, setUsername] = useState("");
     const [name, setName] = useState("");
+
+    const [cookies, setCookie] = useCookies(['login_token']);
+
+    const [isLoading, setLoading] = useState(false);
 
     const [inputType, SetInputType] = useState("password");
 
@@ -35,6 +41,11 @@ const Signup = () => {
                 toast(data.message);
                 console.log(data);
                 localStorage.setItem('login_token', data?.login_token)
+                if (data?.login_token) {
+                    setCookie('login_token', data?.login_token, { path: '/', httpOnly: true, sameSite: true, secure: true, expires: new Date() });
+                    document.cookie = `login_token=${data.login_token}`;
+                    refreshPage();
+                }
             })
             .catch((err) => {
                 // console.log(err);
@@ -43,6 +54,10 @@ const Signup = () => {
             });
 
 
+
+    }
+    function refreshPage() {
+        window.location.reload(false);
     }
 
     return (

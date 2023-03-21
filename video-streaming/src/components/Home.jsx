@@ -7,6 +7,7 @@ import Login from './account/Login'
 import Signup from './account/Signup'
 
 const Home = () => {
+
     return (
         <div className="mx-auto dark:text-white">
             {/*  bg-gray-700 text-white */}
